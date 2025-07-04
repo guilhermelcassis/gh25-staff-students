@@ -111,4 +111,4 @@ This is a custom project for a specific event. For questions or modifications, p
 
 ---
 
-**Built with ❤️ for Dunamis Greenhouse 25 - Sicily, Italy** 
+**Built with ❤️ for Dunamis Greenhouse 25 - Sicily, Italy**

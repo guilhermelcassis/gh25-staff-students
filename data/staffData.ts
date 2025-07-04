@@ -1,0 +1,86 @@
+export const csvData = `NAME;E-MAIL;CELLPHONE;IGREJA;COUNTRY;NATIONALITY;AREA;KIT CAMA;QUARTO;HEALTHY FORM
+Agrippino Giuseppe Aiello;Aiello.giuseppe2002@gmail.com;+39 3927213178;Sabaoth Busto;Italy;Italy;worship + Apoio;YES;47;YES
+Ailyn Torres;aylinxe@gmail.com;+34 658533143;;Spain;Colombia;Multimidia + intercessão;;55;YES
+Alice Asprella;aliceasprella@gmail.com;+39 3938033138;Sabaoth Busto;Italy;Brazil;Room Leader;YES;33 (33 e 34);YES
+Allisandra Lemes;allisandralemes@gmail.com;3,51927E+11;Zion Lisboa;Portugal;United States;Worship;YES;12;YES
+Ana Correa;;;Zion Lisboa;Portugal;Portugal;tradução in-ear + Room leader;YES;35 (35 e 36);YES
+Ana Gabriela Cavalcanti Moreno;anagabrielacavalcantimoreno@gmail.com;616387986;;Spain;Brazil;Tradução + Dunamis Store;YES;43;YES
+André Paiva;andreffp8@gmail.com;+351 965 503 489;Zion Lisboa;Portugal;Brazil;Adoração;;4;YES
+Andrea Maria Grave;Deagrave@gmail.com;351 933 454 042;Zion Lisboa;Brazil;Brazil;Operação;YES;10;YES
+Angelo M - Banda;;;Zion Lisboa;Portugal;Portugal;adoração;YES;4;YES
+Anna Creazzo;aylinxe@gmail.com;3318431048;;Italy;Italy;Apoio;YES;68 (68 e 69);YES
+Arianna bellini;Aribel@hotmail.it;3,93478E+11;;Italy;Italy;Líder de quartos;YES;56;YES
+Arthur;;;;;;;YES;13;
+Austin Hann;AgosAustin@gmail.com / bethelightgraphics@gmail.com;39 342 570 9783;;Italy;United States;Líder de quartos;YES;13;YES
+Ben Ehemann;Benjamin.ehemann@icloud.com;49 1511 2774777;;Portugal;Germany;Intercessão +;YES;52;YES
+Britt;;;;;;;YES;37 (37 e 38);
+Bruna Melita Moreira;Brunamelita@gmail.com;5547991709583;;Brazil;Brazil;Room Leader;YES;39 (39 e 40);YES
+Bruno Felipe;brunopromalaquias@gmail.com;;Zion Lisboa;Portugal;Brazil;Loja;YES;60;YES
+Bruno Ribeiro - Banda;;;Zion Lisboa;Portugal;Brazil;Adoração;YES;4;YES
+Camila Martins;solocamilamartins@gmail.com;39 339 284 5729;;Italy;Brazil;Adoração + Sala verde;YES;41 (41 e 42);YES
+Camila Victoria Arias Peguero;camilavicarias@gmail.com;18299692744;Global Internacional;Dominican Republic;Dominican Republic;;YES;62 (62 e 63);
+Carolina Bez;carolbez7@gmail.com;5521986272406;Zion Sp;Brazil;Brazil;Intercessão +;YES;64 (64 e 65);YES
+Cinthia Paiva;cynthiasfp@gmail.com;+351 926293024;Zion Lisboa;Portugal;Brazil;Intercessão +;YES;14;
+David BERRI MABIALA;davidberri465@gmail.com;33783392844;;France;Romenia;Tradução +;YES;50;
+David Reimer;dfsreimer2004@gmail.com;351915122775;;Portugal;Portugal;Loja (?);YES;50;YES
+Eduardo Nunes;-;;Zion Lisboa;Portugal;Brazil;;YES;8;-
+Felipe Sandes;fe.mota2001@gmail.com;33 0744715132;;France;Brazil;;YES;53;YES
+Fernando Caletti;fernandocaletti@gmail.com;5511976079901;Zion Lisboa;Portugal;Brazil;Operação;YES;11;YES
+Fiona Ampofo;nana.akyiaa21@gmail.com;447404141382;;England;Ghana;Store / Intercessão;NÃO QUER;77, 78;YES
+Gabriela Alves;Gabrielaalves7777@gmail.com;+39 3883255956;;Italy;Brazil;Apoio;YES;22, 23, 24;YES
+Gabriela Guerrero;gabicgandrade@gmail.com;+351 910623444;Zion Lisboa;Portugal;Brazil;Green Room;YES;10;YES
+Gabriele Maineri;gabrymaineri@gmail.com;+39 3275485329;;Italy;Italy;intercessão +;YES;50;YES
+Gabriele Zarcone;gabrielezarcone2004@gmail.com;+39 3299748218;;Italy;Italy;projeção, store;YES;57;YES
+Guilherme Assis;guilhermelcassis@gmail.com;+55 11 985803450;Zion sp;Brazil;Brazil;Driver / Check in;YES;13;
+Guilherme Buzo;guibuzo@icloud.com;+39 3880768693;;Italy;Brazil;;YES;59;YES
+Guilherme Lemes;gui.rochalemes@gmail.com;18138472502;Zion Lisboa;Portugal;Portugal;Worship;YES;4;YES
+Igor de Moraes;demoraesigor@gmail.com;41 78 838 67 24;;Switzerland;Brazil;Intercessão;YES;11;YES
+Isa Catelan;Isapcatelan@gmail.com;351968759375;Zion sp;Portugal;Brazil;;YES;31;YES
+Isabelle Gargalak Aziz da Silveira;isabellegargalak@hotmail.com;+55 11 971370527;Zion sp;Brazil;Brazil;Quartos/ Check in;YES;14;
+Jackie Ferreira;10jackeline.ferreira@gmail.com;+55 62 99247-6843;Zion Vale;Brazil;Brazil;;YES;14;YES
+Kelly Palma;kellymcpalma@gmail.com;351 927 773 211;Zion Lisboa;Portugal;Brazil;Mídias;YES;12;
+Kezzia Mariana de Oliveira Brito;kezziamariana@hotmail.com;31682188063;;Holanda;Brazil;Room Leader;YES;74, 75, 76;YES
+Kristin Nunes;-;;Zion Lisboa;Portugal;United States;;YES;8;-
+Laís Portes;laisportes@gmail.com;+39 3209099201;Zion Lisboa;Portugal;Brazil;Green Room;;66, 67;YES
+Leonardo Fagundes;fagundesleonardo526@gmail.com;351915709603;;Portugal;Brazil;Green Room;;58;
+Letícia Lima;leticia.lima@idunamis.org;+351 914 418 501;Zion Lisboa;Portugal;Brazil;Staff;YES;1;YES
+Luis Javier van Beuzekom;L.vanbeuzekom@hotmail.com;31686099104;;Netherlands;Dominican Republic;Room Leader;YES;51;YES
+Luke;lucas.765@gmail.com;351 926 302 381;Zion Lisboa;Portugal;Brazil;Mídias;YES;4;
+Mabell Cárdenas López;m_cardenaslopez@hotmail.com;+593 987840832;;Italy;Ecuador;;NÃO QUER;70, 71;YES
+Mafalda Fonseca;Mafalda.sfonseca01@gmail.com;(+351) 932768144;Zion Lisboa;Portugal;Portugal;Mídias;YES;12;
+Marcello Danelli;-;351 936 848 519;Zion Lisboa;Portugal;Brazil;School Leader;YES;2;-
+Maria Creazzo;maria.creazzo@hotmail.it;+39 3403305089;;Italy;Italy;;YES;72, 73;YES
+Martina Creazzo;martina.creazzo20@gmail.com;+39 3888850759;;Italy;Italy;Mídias;YES;55;YES
+Mateus Cebola;mateus.daniel.reis@gmail.com;351936582452;Zion Lisboa;Portugal;Portugal;Streaming;YES;13;-
+Matthew oppiniano;;;;Belgium;Belgium;;YES;4;YES
+Miguel Vieira;vieira.miguel@proton.me;;Zion sp;Brazil;Brazil;Intercessão;YES;58;
+Mikaela Thayssa;Mikaelathayssa.qz@icloud.com;+351 911170571;Zion Lisboa;Portugal;Brazil;Mídias;;;
+Miriam Hadassa Ribeiro;miriam6hadassa5@gmail.com;+33 0782226453;;France;Japan;Green Room;YES;27;
+Murilo CARRIAS CASTELO BRANCO;murilocarrias@gmail.com;+33 6 46 15 87 79;;France;Brazil;Tradução +;YES;57;YES
+Nathalia Heringer;nathy_heringer@hotmail.com;;Zion Lisboa;Portugal;Brazil;Green Room;YES;27;
+Nathan Andrade dos Santos;nathan.profeta96@gmail.com;393804386090;Zion Lisboa;Portugal;Brazil;;;11;
+Nathan Andrés Marcari Justino;marcarinathan@gmail.com;+34 678816787;;Spain;Brazil;Tradução;YES;13;YES
+Nathany Toledo;nathany93@hotmail.com;+351 912 468 248;Zion Lisboa;Portugal;Brazil;Multimídia;YES;61;
+Niftalem Zecharias;nifta.t@gmx.de;+49 17661421031;;Germany;Germany;;YES;48;
+Paula Bontorim;;39 351 314 5048;Zion;Italy;Brazil;Intercessão;YES;3;-
+Pedro Bontorim;;55 11 97228-3078;Zion;Italy;Brazil;Worship;YES;3;
+Philip;philip.breuers@gmail.com;;;Germany;Germany;;YES;49;YES
+Rafaella Danelli;-;351 936 848 063;Zion Lisboa;Portugal;Brazil;;YES;2;-
+Raíssa Madeira;raissa.madeira07@gmail.com;351933448079;Zion Lisboa;Portugal;Brazil;head Loja;YES;31;YES
+Raul Moreno;rauldmorenom20@gmail.com;351911034393;Zion Lisboa;Portugal;Colombia;;YES;46;
+Rebeca Angel;rebecaangel@outlook.com;5532988338864;Zion Lisboa;Brazil;Brazil;Tradução de Palco;YES;10;YES
+Rhebeca Giulia Marcari Justino;rhebecagiulia@gmail.com;+34 634242233;;Spain;Brazil;Room Leader;YES;25, 26, 30;YES
+Rhuan Felipe Albuquerque;rhuan.albuquerque2000@gmail.com;+44 07593 979147;;England;Brazil;Areas executivas;YES;13;YES
+Ricardo Pereira Dutra Filho;Ricardopdfilho@gmail.com;19189076557;;United States;Brazil;;YES;44;
+Ritchelly Patrick De Abreu Costa;ritchellypatrick@gmail.com;933635253;Zion Lisboa;Portugal;Brazil;;;45;YES
+Roney Lemes;-;351 912 851 500;Zion Lisboa;Portugal;Portugal;Mission trips;YES;5;
+Ruth Ribeiro;Ruthaiyumi@gmail.com;+33 7 69 82 53 17;;France;Japan;Room Leader;YES;28, 29;YES
+Santino Emanuele Ventre;santino.ventre@gmail.com;+39 3337579590;;Italy;Italy;Multimídia + adoração;YES;59;YES
+Sarah Nicolle Souza;snsouza559@gmail.com;203-559-9385;;United States;United States;Room Leader;YES;17, 18;YES
+Sarah Pentova;sarah.pentova@gmail.com;421903044075;;Slovakia;Slovakia;;YES;79;YES
+Sophea Harra;sophea.harra@gmail.com;43 6764477079;;Austria;Mozambique;Store;YES;19, 20, 21;YES
+Stefano Ventre;Stefano.ventre25@gmail.com;+39 3913071455;;Italy;Italy;;YES;60;YES
+Tainá;tainafsantos99@gmail.com;5541992181668;;Brazil;Brazil;;;56;
+Tamiris Taveira;-;351 912 094 175;Zion Lisboa;Portugal;Brazil;Mídias / Operação;YES;1;
+Thaieny Gonçalves Lemes;tglvieira@gmail.com;351962514175;Zion Lisboa;Portugal;Portugal;Worship;YES;1;
+Thomas Deuel;tddc.thomas@gmail.com;351915816808;Zion Lisboa;Portugal;Brazil;;YES;15;`; 

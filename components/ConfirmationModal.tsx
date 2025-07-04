@@ -63,14 +63,14 @@ export default function ConfirmationModal({
               {staff.email && (
                 <p>{staff.email}</p>
               )}
-              {staff.country && staff.igreja && (
-                <p>{staff.country} • {staff.igreja}</p>
+              {staff.country && staff.church && (
+                <p>{staff.country} • {staff.church}</p>
               )}
-              {staff.area && (
-                <p>Area: {staff.area}</p>
+              {staff.language && (
+                <p>Language: {staff.language}</p>
               )}
-              {staff.quarto && (
-                <p>Room: {staff.quarto}</p>
+              {staff.room && (
+                <p>Room: {staff.room}</p>
               )}
             </div>
           </div>

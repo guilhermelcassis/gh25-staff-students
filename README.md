@@ -1,6 +1,6 @@
-# Dunamis Greenhouse 25 - Staff Check-In System 🇮🇹
+# Dunamis Greenhouse 25 - Check-In System 🇮🇹
 
-A modern, mobile-first staff check-in system built for the Dunamis Greenhouse 25 Christian missionary school event in Sicily, Italy.
+A modern, mobile-first  check-in system built for the Dunamis Greenhouse 25 Christian missionary school event in Sicily, Italy.
 
 ## ✨ Features
 

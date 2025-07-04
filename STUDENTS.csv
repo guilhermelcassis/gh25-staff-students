@@ -1,4 +1,4 @@
-﻿export const csvData = `NAME;STATUS;GENDER;EMAIL;PHONE;AGE;CONTRY;NACIONALITY;LANGUAGE;CHURCH;ROOM;BED KIT;ÔNIBUS;DOCUMENTS ';UNDERAGE DOC;HEALTHY FORM;OBS
+﻿NAME;STATUS;GENDER;EMAIL;PHONE;AGE;CONTRY;NACIONALITY;LANGUAGE;CHURCH;ROOM;BED KIT;ÔNIBUS;DOCUMENTS ';UNDERAGE DOC;HEALTHY FORM;OBS
 Amy Dal Buono Diabaté;FULLY PAID;Female / Feminino;diabate.amy412@gmail.com;662333623;30;France;France;English, French, Italian;;RUTH - 29;0;TRUE;TRUE;N/A;TRUE;
 Rayan Paul;FULLY PAID;Male / Masculino;Paulrayan3c2.3@gmail.com;761148076;21;France;France;French / Francês;AVEC International;FELIPE - 53;1;TRUE;TRUE;N/A;TRUE;
 Berri-m Damaris;FULLY PAID;Female / Feminino;Berri.damaris@gmail.com;766448651;19;France;France;French / Francês;Vie et paix;RUTH - 29;0;TRUE;TRUE;N/A;TRUE;
@@ -279,4 +279,3 @@ YASMIM DE SOUZA SANTOS DOBLER;FULLY PAID;Female / Feminino;yas.dobler@gmail.com;
 Joy Paredes Harbert;FULLY PAID;Female / Feminino;joyparedesh@gmail.com;593 990790218;35;Ecuador;England;Spanish;Zion Quito;GABI M - 43;1;TRUE;TRUE;N/A;TRUE;
 Kazuya;ONGOING PAYMENT;Male / Masculino;gaoqiaoheye269@gmail.com;81 8016600745;32;Japan;Japan;English, Japanese;Nisinakada fukuin kyoukai;FELIPE - 53;0;FALSE;FALSE;N/A;TRUE;
 Moksh Tomar;ONGOING PAYMENT;Male / Masculino;mokshtomar001@gmail.com;91 7470467700;23;India;India;English;Bethel Church of Nations;NIFTA - 48;0;TRUE;FALSE;N/A;TRUE;
-`;

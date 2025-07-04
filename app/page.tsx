@@ -52,9 +52,9 @@ export default function Home() {
       staff.name.toLowerCase().includes(query) ||
       staff.email.toLowerCase().includes(query) ||
       staff.country.toLowerCase().includes(query) ||
-      staff.igreja.toLowerCase().includes(query) ||
-      staff.area.toLowerCase().includes(query) ||
-      staff.quarto.toLowerCase().includes(query)
+      staff.church.toLowerCase().includes(query) ||
+      staff.language.toLowerCase().includes(query) ||
+      staff.room.toLowerCase().includes(query)
     );
   }, [pendingStaff, searchQuery]);
 
@@ -66,9 +66,9 @@ export default function Home() {
       staff.name.toLowerCase().includes(query) ||
       staff.email.toLowerCase().includes(query) ||
       staff.country.toLowerCase().includes(query) ||
-      staff.igreja.toLowerCase().includes(query) ||
-      staff.area.toLowerCase().includes(query) ||
-      staff.quarto.toLowerCase().includes(query)
+      staff.church.toLowerCase().includes(query) ||
+      staff.language.toLowerCase().includes(query) ||
+      staff.room.toLowerCase().includes(query)
     );
   }, [checkedInStaff, searchQuery]);
 
@@ -100,6 +100,7 @@ export default function Home() {
       setCurrentView('pending');
     }
     setSelectedStaff(null);
+    // Don't clear search query - preserve it to maintain filtered results
   };
 
   const handleViewChange = (view: View) => {
@@ -137,10 +138,10 @@ export default function Home() {
       {/* Header */}
       <div className="sticky top-0 bg-white border-b border-neutral-200 z-10">
         <div className="px-4 py-4">
-          <h1 className="text-2xl font-bold text-neutral-900 mb-4">Staff Check-In</h1>
+          <h1 className="text-2xl font-bold text-neutral-900 mb-4">Student Check-In</h1>
           
           {/* Search Bar */}
-          <SearchBar onSearch={setSearchQuery} />
+          <SearchBar onSearch={setSearchQuery} value={searchQuery} />
           
           {/* Tab Navigation */}
           <div className="flex bg-neutral-100 rounded-lg p-1">
@@ -180,7 +181,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-medium text-neutral-900 mb-2">
-                  {searchQuery ? 'No matching staff found' : 'All staff checked in!'}
+                  {searchQuery ? 'No matching staff found' : 'All students checked in!'}
                 </h3>
                 <p className="text-neutral-500">
                   {searchQuery ? 'Try adjusting your search terms' : 'Great job! Everyone has been checked in.'}
@@ -208,7 +209,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-medium text-neutral-900 mb-2">
-                  {searchQuery ? 'No matching checked-in staff found' : 'No staff checked in yet'}
+                  {searchQuery ? 'No matching checked-in staff found' : 'No students checked in yet'}
                 </h3>
                 <p className="text-neutral-500">
                   {searchQuery ? 'Try adjusting your search terms' : 'Staff members will appear here after checking in.'}
@@ -224,28 +225,42 @@ export default function Home() {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-neutral-900 truncate">
+                        <h3 className="text-lg font-semibold text-neutral-900 truncate mb-2">
                           {staff.name}
                         </h3>
-                        <div className="mt-1 space-y-1">
-                          <p className="text-sm text-neutral-600">
-                            {staff.country} {staff.igreja && `• ${staff.igreja}`}
-                          </p>
-                          {staff.email && (
-                            <p className="text-sm text-neutral-500 truncate">
-                              {staff.email}
-                            </p>
-                          )}
-                          {staff.area && (
-                            <p className="text-sm text-neutral-500">
-                              Area: {staff.area}
-                            </p>
-                          )}
+                        <div className="space-y-1">
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span className="text-sm text-neutral-600 truncate">
+                              {staff.country || 'Not provided'}
+                            </span>
+                          </div>
+                          
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                            </svg>
+                            <span className="text-sm text-neutral-600 truncate">
+                              {staff.language || 'Not provided'}
+                            </span>
+                          </div>
+                          
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <span className="text-sm text-neutral-600 truncate">
+                              Room: {staff.room || 'Not provided'}
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <div className="ml-4 flex-shrink-0 flex items-center space-x-2">
-                        <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                          <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>

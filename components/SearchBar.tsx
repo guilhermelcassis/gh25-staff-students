@@ -5,19 +5,16 @@ import React, { useState } from 'react';
 interface SearchBarProps {
   onSearch: (query: string) => void;
   placeholder?: string;
+  value?: string;
 }
 
-export default function SearchBar({ onSearch, placeholder = "Search staff..." }: SearchBarProps) {
-  const [query, setQuery] = useState('');
-
+export default function SearchBar({ onSearch, placeholder = "Search staff...", value = '' }: SearchBarProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
-    onSearch(value);
+    const newValue = e.target.value;
+    onSearch(newValue);
   };
 
   const clearSearch = () => {
-    setQuery('');
     onSearch('');
   };
 
@@ -26,7 +23,7 @@ export default function SearchBar({ onSearch, placeholder = "Search staff..." }:
       <div className="relative">
         <input
           type="text"
-          value={query}
+          value={value}
           onChange={handleInputChange}
           placeholder={placeholder}
           className="input-field pl-12 pr-12 text-lg"
@@ -43,7 +40,7 @@ export default function SearchBar({ onSearch, placeholder = "Search staff..." }:
         </div>
         
         {/* Clear Button */}
-        {query && (
+        {value && (
           <button
             onClick={clearSearch}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"

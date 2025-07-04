@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Staff Check-In',
-  description: 'Mobile-first staff check-in system for events',
+  title: 'Student Check-In',
+  description: 'Mobile-first check-in system for events',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
 }
 

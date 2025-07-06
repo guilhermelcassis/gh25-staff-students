@@ -206,6 +206,17 @@ export default function Home() {
     }
   };
 
+  // Create wrapper functions for staff member operations
+  const handleStaffMemberCheckInById = (id: string) => {
+    const staff = allStaffMembers.find(s => s.id === id);
+    if (staff) handleCheckIn(staff);
+  };
+
+  const handleStaffMemberCheckOutById = (id: string) => {
+    const staff = allStaffMembers.find(s => s.id === id);
+    if (staff) handleUncheck(staff);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
@@ -234,8 +245,8 @@ export default function Home() {
     return (
       <StaffMemberDetail
         staffMember={selectedStaffMember}
-        onCheckIn={handleCheckIn}
-        onCheckOut={handleUncheck}
+        onCheckIn={handleStaffMemberCheckInById}
+        onCheckOut={handleStaffMemberCheckOutById}
         onBack={handleBack}
         onUpdate={(id: string, updates: Partial<StaffMember>) => handleStaffMemberUpdate(id, updates)}
       />
@@ -259,8 +270,8 @@ export default function Home() {
     return (
       <StaffMemberDetail
         staffMember={selectedStaffMember}
-        onCheckIn={handleCheckIn}
-        onCheckOut={handleUncheck}
+        onCheckIn={handleStaffMemberCheckInById}
+        onCheckOut={handleStaffMemberCheckOutById}
         onBack={handleBack}
         onUpdate={(id: string, updates: Partial<StaffMember>) => handleStaffMemberUpdate(id, updates)}
       />
@@ -338,8 +349,8 @@ export default function Home() {
                     <StaffMemberCard
                       key={staff.id}
                       staffMember={staff as StaffMember}
-                      onCheckIn={handleCheckIn}
-                      onCheckOut={handleUncheck}
+                      onCheckIn={handleStaffMemberCheckInById}
+                      onCheckOut={handleStaffMemberCheckOutById}
                       onClick={handleStaffSelect}
                     />
                   )
@@ -423,8 +434,8 @@ export default function Home() {
                     <StaffMemberCard
                       key={staff.id}
                       staffMember={staff as StaffMember}
-                      onCheckIn={handleCheckIn}
-                      onCheckOut={handleUncheck}
+                      onCheckIn={handleStaffMemberCheckInById}
+                      onCheckOut={handleStaffMemberCheckOutById}
                       onClick={handleStaffSelect}
                     />
                   )

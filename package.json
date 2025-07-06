@@ -6,9 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "import-data": "npx tsx scripts/import-data.ts",
+    "import-data:clear": "npx tsx scripts/import-data.ts --clear",
+    "import-all": "npx tsx scripts/import-all-data.ts",
+    "import-all:clear": "npx tsx scripts/import-all-data.ts --clear"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.50.3",
     "next": "^14.2.30",
     "react": "^18",
     "react-dom": "^18"
@@ -18,10 +23,12 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.0.1",
+    "dotenv": "^17.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }

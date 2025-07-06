@@ -3,16 +3,20 @@
 import React, { useState } from 'react';
 import { Staff } from '../types/staff';
 import { getStaffDisplayName } from '../utils/csvParser';
+import EditStaffModal from './EditStaffModal';
 
 interface CheckedInDetailProps {
   staff: Staff;
   onUncheck: (staff: Staff) => void;
   onBack: () => void;
+  onUpdate?: (updatedStaff: Staff) => void;
 }
 
-export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInDetailProps) {
+export default function CheckedInDetail({ staff, onUncheck, onBack, onUpdate }: CheckedInDetailProps) {
   const [isUnchecking, setIsUnchecking] = useState(false);
   const [showUncheckConfirmation, setShowUncheckConfirmation] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [currentStaff, setCurrentStaff] = useState<Staff>(staff);
 
   const handleUncheckClick = () => {
     setShowUncheckConfirmation(true);
@@ -31,6 +35,22 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
 
   const handleCancelUncheck = () => {
     setShowUncheckConfirmation(false);
+  };
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
+  };
+
+  const handleEditSave = (updatedStaff: Staff) => {
+    setCurrentStaff(updatedStaff);
+    setShowEditModal(false);
+    if (onUpdate) {
+      onUpdate(updatedStaff);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setShowEditModal(false);
   };
 
   const formatFieldValue = (value: string | undefined) => {
@@ -63,7 +83,16 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
             </svg>
           </button>
           <h1 className="text-xl font-semibold text-neutral-900">Staff Details</h1>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center space-x-2">
+            <button
+              onClick={handleEditClick}
+              className="p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+              title="Edit Staff Information"
+            >
+              <svg className="w-5 h-5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </button>
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -81,15 +110,15 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
           <div className="text-center">
             <div className="w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <span className="text-3xl font-bold text-white">
-                {getStaffDisplayName(staff).charAt(0).toUpperCase()}
+                {getStaffDisplayName(currentStaff).charAt(0).toUpperCase()}
               </span>
             </div>
             <h2 className="text-2xl font-bold text-neutral-900 mb-2">
-              {getStaffDisplayName(staff)}
+              {getStaffDisplayName(currentStaff)}
             </h2>
             <div className="flex justify-center mb-3">
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusBadgeColor(staff.status)}`}>
-                {formatFieldValue(staff.status)}
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusBadgeColor(currentStaff.status)}`}>
+                {formatFieldValue(currentStaff.status)}
               </span>
             </div>
             <div className="flex items-center justify-center space-x-2 text-green-600">
@@ -97,9 +126,9 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               <span className="text-sm font-medium">Successfully Checked In</span>
-              {staff.checkedInAt && (
+              {currentStaff.checkedInAt && (
                 <span className="text-xs text-gray-500">
-                  • {new Date(staff.checkedInAt).toLocaleString()}
+                  • {new Date(currentStaff.checkedInAt).toLocaleString()}
                 </span>
               )}
             </div>
@@ -115,7 +144,7 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
               </svg>
               <span className="text-sm font-medium text-gray-600">Age</span>
             </div>
-            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(staff.age)}</p>
+            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(currentStaff.age)}</p>
           </div>
           
           <div className="bg-white rounded-lg p-4 shadow-sm">
@@ -126,7 +155,7 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
               </svg>
               <span className="text-sm font-medium text-gray-600">Country</span>
             </div>
-            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(staff.country)}</p>
+            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(currentStaff.country)}</p>
           </div>
         </div>
 
@@ -329,12 +358,20 @@ export default function CheckedInDetail({ staff, onUncheck, onBack }: CheckedInD
       {showUncheckConfirmation && (
         <UncheckConfirmationModal
           isOpen={showUncheckConfirmation}
-          staff={staff}
+          staff={currentStaff}
           onConfirm={handleConfirmUncheck}
           onCancel={handleCancelUncheck}
           isLoading={isUnchecking}
         />
       )}
+
+      {/* Edit Modal */}
+      <EditStaffModal
+        isOpen={showEditModal}
+        staff={currentStaff}
+        onClose={handleEditCancel}
+        onSave={handleEditSave}
+      />
     </div>
   );
 }

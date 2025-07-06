@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import Navigation from '../components/Navigation'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#228B22" />
       </head>
       <body className="bg-neutral-50 min-h-screen">
+        <Navigation />
         {children}
       </body>
     </html>

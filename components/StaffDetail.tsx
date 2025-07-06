@@ -4,16 +4,20 @@ import React, { useState } from 'react';
 import { Staff } from '../types/staff';
 import { getStaffDisplayName } from '../utils/csvParser';
 import ConfirmationModal from './ConfirmationModal';
+import EditStaffModal from './EditStaffModal';
 
 interface StaffDetailProps {
   staff: Staff;
   onCheckIn: (staff: Staff) => void;
   onBack: () => void;
+  onUpdate?: (updatedStaff: Staff) => void;
 }
 
-export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailProps) {
+export default function StaffDetail({ staff, onCheckIn, onBack, onUpdate }: StaffDetailProps) {
   const [isChecking, setIsChecking] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [currentStaff, setCurrentStaff] = useState<Staff>(staff);
 
   const handleCheckInClick = () => {
     setShowConfirmation(true);
@@ -32,6 +36,22 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
 
   const handleCancelCheckIn = () => {
     setShowConfirmation(false);
+  };
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
+  };
+
+  const handleEditSave = (updatedStaff: Staff) => {
+    setCurrentStaff(updatedStaff);
+    setShowEditModal(false);
+    if (onUpdate) {
+      onUpdate(updatedStaff);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setShowEditModal(false);
   };
 
   const formatFieldValue = (value: string | undefined) => {
@@ -54,16 +74,27 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="sticky top-0 bg-white border-b border-neutral-200 px-4 py-3 z-10 shadow-sm">
-        <div className="flex items-center">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <button
+              onClick={onBack}
+              className="mr-3 p-2 -ml-2 rounded-lg hover:bg-neutral-100 transition-colors"
+            >
+              <svg className="w-6 h-6 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <h1 className="text-xl font-semibold text-neutral-900">Staff Details</h1>
+          </div>
           <button
-            onClick={onBack}
-            className="mr-3 p-2 -ml-2 rounded-lg hover:bg-neutral-100 transition-colors"
+            onClick={handleEditClick}
+            className="p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+            title="Edit Staff Information"
           >
-            <svg className="w-6 h-6 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg className="w-5 h-5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
           </button>
-          <h1 className="text-xl font-semibold text-neutral-900">Staff Details</h1>
         </div>
       </div>
 
@@ -74,15 +105,15 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
           <div className="text-center">
             <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <span className="text-3xl font-bold text-white">
-                {getStaffDisplayName(staff).charAt(0).toUpperCase()}
+                {getStaffDisplayName(currentStaff).charAt(0).toUpperCase()}
               </span>
             </div>
             <h2 className="text-2xl font-bold text-neutral-900 mb-2">
-              {getStaffDisplayName(staff)}
+              {getStaffDisplayName(currentStaff)}
             </h2>
             <div className="flex justify-center">
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusBadgeColor(staff.status)}`}>
-                {formatFieldValue(staff.status)}
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusBadgeColor(currentStaff.status)}`}>
+                {formatFieldValue(currentStaff.status)}
               </span>
             </div>
           </div>
@@ -97,7 +128,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
               </svg>
               <span className="text-sm font-medium text-gray-600">Age</span>
             </div>
-            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(staff.age)}</p>
+            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(currentStaff.age)}</p>
           </div>
           
           <div className="bg-white rounded-lg p-4 shadow-sm">
@@ -108,7 +139,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
               </svg>
               <span className="text-sm font-medium text-gray-600">Country</span>
             </div>
-            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(staff.country)}</p>
+            <p className="text-lg font-semibold text-gray-900">{formatFieldValue(currentStaff.country)}</p>
           </div>
         </div>
 
@@ -127,7 +158,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
               </svg>
               <div className="flex-1">
                 <p className="text-sm font-medium text-gray-600">Email</p>
-                <p className="text-gray-900 break-all">{formatFieldValue(staff.email)}</p>
+                <p className="text-gray-900 break-all">{formatFieldValue(currentStaff.email)}</p>
               </div>
             </div>
             <div className="flex items-start">
@@ -136,7 +167,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
               </svg>
               <div className="flex-1">
                 <p className="text-sm font-medium text-gray-600">Phone</p>
-                <p className="text-gray-900">{formatFieldValue(staff.phone)}</p>
+                <p className="text-gray-900">{formatFieldValue(currentStaff.phone)}</p>
               </div>
             </div>
           </div>
@@ -153,15 +184,15 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <p className="text-sm font-medium text-gray-600">Gender</p>
-              <p className="text-gray-900">{formatFieldValue(staff.gender)}</p>
+              <p className="text-gray-900">{formatFieldValue(currentStaff.gender)}</p>
             </div>
             <div className="space-y-1">
               <p className="text-sm font-medium text-gray-600">Nationality</p>
-              <p className="text-gray-900">{formatFieldValue(staff.nationality)}</p>
+              <p className="text-gray-900">{formatFieldValue(currentStaff.nationality)}</p>
             </div>
             <div className="space-y-1 md:col-span-2">
               <p className="text-sm font-medium text-gray-600">Languages</p>
-              <p className="text-gray-900">{formatFieldValue(staff.language)}</p>
+              <p className="text-gray-900">{formatFieldValue(currentStaff.language)}</p>
             </div>
           </div>
         </div>
@@ -176,7 +207,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
           </div>
           <div className="space-y-1">
             <p className="text-sm font-medium text-gray-600">Church</p>
-            <p className="text-gray-900">{formatFieldValue(staff.church)}</p>
+            <p className="text-gray-900">{formatFieldValue(currentStaff.church)}</p>
           </div>
         </div>
 
@@ -191,29 +222,29 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <p className="text-sm font-medium text-gray-600">Room Assignment</p>
-              <p className="text-gray-900 font-medium">{formatFieldValue(staff.room)}</p>
+              <p className="text-gray-900 font-medium">{formatFieldValue(currentStaff.room)}</p>
             </div>
             <div className="space-y-1">
               <p className="text-sm font-medium text-gray-600">Bed Kit</p>
               <div className="flex items-center">
-                <span className="text-gray-900 font-medium mr-2">Quantity: {staff.bedKit}</span>
+                <span className="text-gray-900 font-medium mr-2">Quantity: {currentStaff.bedKit}</span>
                 <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${
-                  staff.bedKit === '0' ? 'bg-red-100 text-red-800' : 
-                  staff.bedKit === '1' ? 'bg-green-100 text-green-800' : 
-                  staff.bedKit === '2' ? 'bg-blue-100 text-blue-800' : 
+                  currentStaff.bedKit === '0' ? 'bg-red-100 text-red-800' : 
+                  currentStaff.bedKit === '1' ? 'bg-green-100 text-green-800' : 
+                  currentStaff.bedKit === '2' ? 'bg-blue-100 text-blue-800' : 
                   'bg-gray-100 text-gray-800'
                 }`}>
-                  {staff.bedKit === '0' ? 'None' : 
-                   staff.bedKit === '1' ? '1 Kit' : 
-                   staff.bedKit === '2' ? '2 Kits' : 
-                   staff.bedKit + ' Kit(s)'}
+                  {currentStaff.bedKit === '0' ? 'None' : 
+                   currentStaff.bedKit === '1' ? '1 Kit' : 
+                   currentStaff.bedKit === '2' ? '2 Kits' : 
+                   currentStaff.bedKit + ' Kit(s)'}
                 </span>
               </div>
             </div>
             <div className="space-y-1">
               <p className="text-sm font-medium text-gray-600">Bus Transportation</p>
-              <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(staff.bus)}`}>
-                {staff.bus === 'TRUE' ? 'Required' : 'Not Required'}
+              <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(currentStaff.bus)}`}>
+                {currentStaff.bus === 'TRUE' ? 'Required' : 'Not Required'}
               </span>
             </div>
           </div>
@@ -230,21 +261,21 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-600">Documents Submitted</span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(staff.documents)}`}>
-                {staff.documents === 'TRUE' ? '✓ Complete' : '✗ Pending'}
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(currentStaff.documents)}`}>
+                {currentStaff.documents === 'TRUE' ? '✓ Complete' : '✗ Pending'}
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-600">Health Form</span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(staff.healthyForm)}`}>
-                {staff.healthyForm === 'TRUE' ? '✓ Complete' : '✗ Pending'}
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(currentStaff.healthyForm)}`}>
+                {currentStaff.healthyForm === 'TRUE' ? '✓ Complete' : '✗ Pending'}
               </span>
             </div>
-            {staff.underageDoc && staff.underageDoc !== 'N/A' && (
+            {currentStaff.underageDoc && currentStaff.underageDoc !== 'N/A' && (
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-gray-600">Underage Documentation</span>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(staff.underageDoc)}`}>
-                  {staff.underageDoc === 'TRUE' ? '✓ Complete' : '✗ Pending'}
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getBooleanBadge(currentStaff.underageDoc)}`}>
+                  {currentStaff.underageDoc === 'TRUE' ? '✓ Complete' : '✗ Pending'}
                 </span>
               </div>
             )}
@@ -252,7 +283,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
         </div>
 
         {/* Observations */}
-        {staff.obs && staff.obs !== 'N/A' && staff.obs.trim() !== '' && (
+        {currentStaff.obs && currentStaff.obs !== 'N/A' && currentStaff.obs.trim() !== '' && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
             <div className="flex items-center mb-3">
               <svg className="w-6 h-6 text-amber-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,7 +292,7 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
               <h3 className="text-lg font-semibold text-amber-800">Important Notes</h3>
             </div>
             <p className="text-amber-700 bg-white p-3 rounded-lg border border-amber-200">
-              {staff.obs}
+              {currentStaff.obs}
             </p>
           </div>
         )}
@@ -296,10 +327,18 @@ export default function StaffDetail({ staff, onCheckIn, onBack }: StaffDetailPro
       {/* Confirmation Modal */}
       <ConfirmationModal
         isOpen={showConfirmation}
-        staff={staff}
+        staff={currentStaff}
         onConfirm={handleConfirmCheckIn}
         onCancel={handleCancelCheckIn}
         isLoading={isChecking}
+      />
+
+      {/* Edit Modal */}
+      <EditStaffModal
+        isOpen={showEditModal}
+        staff={currentStaff}
+        onClose={handleEditCancel}
+        onSave={handleEditSave}
       />
     </div>
   );

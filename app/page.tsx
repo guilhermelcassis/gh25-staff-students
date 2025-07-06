@@ -245,10 +245,10 @@ export default function Home() {
     return (
       <StaffMemberDetail
         staffMember={selectedStaffMember}
-        onCheckIn={handleStaffMemberCheckInById}
-        onCheckOut={handleStaffMemberCheckOutById}
+        onCheckIn={handleCheckIn}
+        onUncheck={handleUncheck}
         onBack={handleBack}
-        onUpdate={(id: string, updates: Partial<StaffMember>) => handleStaffMemberUpdate(id, updates)}
+        onUpdate={(updatedStaffMember: StaffMember) => handleStaffMemberUpdate(updatedStaffMember.id, updatedStaffMember)}
       />
     );
   }
@@ -270,10 +270,10 @@ export default function Home() {
     return (
       <StaffMemberDetail
         staffMember={selectedStaffMember}
-        onCheckIn={handleStaffMemberCheckInById}
-        onCheckOut={handleStaffMemberCheckOutById}
+        onCheckIn={handleCheckIn}
+        onUncheck={handleUncheck}
         onBack={handleBack}
-        onUpdate={(id: string, updates: Partial<StaffMember>) => handleStaffMemberUpdate(id, updates)}
+        onUpdate={(updatedStaffMember: StaffMember) => handleStaffMemberUpdate(updatedStaffMember.id, updatedStaffMember)}
       />
     );
   }
@@ -349,9 +349,7 @@ export default function Home() {
                     <StaffMemberCard
                       key={staff.id}
                       staffMember={staff as StaffMember}
-                      onCheckIn={handleStaffMemberCheckInById}
-                      onCheckOut={handleStaffMemberCheckOutById}
-                      onClick={handleStaffSelect}
+                      onSelect={handleStaffSelect}
                     />
                   )
                 ))}
@@ -434,9 +432,7 @@ export default function Home() {
                     <StaffMemberCard
                       key={staff.id}
                       staffMember={staff as StaffMember}
-                      onCheckIn={handleStaffMemberCheckInById}
-                      onCheckOut={handleStaffMemberCheckOutById}
-                      onClick={handleStaffSelect}
+                      onSelect={handleStaffSelect}
                     />
                   )
                 ))}

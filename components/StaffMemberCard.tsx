@@ -5,63 +5,67 @@ import { StaffMember } from '../types/staff';
 
 interface StaffMemberCardProps {
   staffMember: StaffMember;
-  onCheckIn: (id: string) => void;
-  onCheckOut: (id: string) => void;
-  onClick: (staffMember: StaffMember) => void;
+  onSelect: (staffMember: StaffMember) => void;
 }
 
-export default function StaffMemberCard({ staffMember, onCheckIn, onCheckOut, onClick }: StaffMemberCardProps) {
-  const handleCheckInOut = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (staffMember.checkedIn) {
-      onCheckOut(staffMember.id);
-    } else {
-      onCheckIn(staffMember.id);
-    }
+export default function StaffMemberCard({ staffMember, onSelect }: StaffMemberCardProps) {
+  const handleClick = () => {
+    onSelect(staffMember);
+  };
+
+  const formatFieldValue = (value: string | undefined) => {
+    return value && value.trim() ? value : 'Not provided';
   };
 
   return (
     <div 
-      className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer border border-gray-200"
-      onClick={() => onClick(staffMember)}
+      onClick={handleClick}
+      className="card hover:shadow-md transition-shadow duration-200 cursor-pointer active:scale-[0.98] transition-transform"
     >
-      <div className="flex justify-between items-start mb-3">
-        <div className="flex-1">
-          <h3 className="font-semibold text-lg text-gray-800 mb-1">{staffMember.name}</h3>
-          <div className="text-sm text-gray-600 space-y-1">
-            <p><span className="font-medium">Area:</span> {staffMember.area}</p>
-            <p><span className="font-medium">Country:</span> {staffMember.country}</p>
-            <p><span className="font-medium">Church:</span> {staffMember.igreja}</p>
-            <p><span className="font-medium">Room:</span> {staffMember.quarto}</p>
+      <div className="flex items-start justify-between">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-lg font-semibold text-neutral-900 truncate mb-2">
+            {staffMember.name}
+          </h3>
+          
+          <div className="space-y-1">
+            <div className="flex items-center">
+              <svg className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="text-sm text-neutral-600 truncate">
+                {formatFieldValue(staffMember.country)}
+              </span>
+            </div>
+            
+            <div className="flex items-center">
+              <svg className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <span className="text-sm text-neutral-600 truncate">
+                Area: {formatFieldValue(staffMember.area)}
+              </span>
+            </div>
+            
+            <div className="flex items-center">
+              <svg className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <span className="text-sm text-neutral-600 truncate">
+                Room: {formatFieldValue(staffMember.quarto)}
+              </span>
+            </div>
           </div>
         </div>
-        <button
-          onClick={handleCheckInOut}
-          className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-            staffMember.checkedIn
-              ? 'bg-red-100 text-red-800 hover:bg-red-200'
-              : 'bg-green-100 text-green-800 hover:bg-green-200'
-          }`}
-        >
-          {staffMember.checkedIn ? 'Check Out' : 'Check In'}
-        </button>
-      </div>
-      
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <span className={`inline-block w-2 h-2 rounded-full ${
-            staffMember.checkedIn ? 'bg-green-500' : 'bg-gray-400'
-          }`}></span>
-          <span className="text-sm text-gray-600">
-            {staffMember.checkedIn ? 'Checked In' : 'Pending'}
-          </span>
-        </div>
         
-        {staffMember.checkedIn && staffMember.checkedInAt && (
-          <span className="text-xs text-gray-500">
-            {new Date(staffMember.checkedInAt).toLocaleString()}
-          </span>
-        )}
+        <div className="ml-4 flex-shrink-0">
+          <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+            <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );

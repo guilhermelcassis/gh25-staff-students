@@ -167,5 +167,69 @@ export const studentService = {
     };
     const result = await studentService.updateStudent(id, updates);
     return result !== null;
+  },
+
+  createStudent: async (studentData: Omit<Staff, 'id' | 'checkedIn' | 'checkedInAt'>): Promise<Staff | null> => {
+    try {
+      // Transform our interface to Supabase format
+      const supabaseData: any = {
+        name: studentData.name,
+        status: studentData.status,
+        gender: studentData.gender,
+        email: studentData.email,
+        phone: studentData.phone,
+        age: studentData.age,
+        country: studentData.country,
+        nationality: studentData.nationality,
+        language: studentData.language,
+        church: studentData.church,
+        room: studentData.room,
+        bed_kit: studentData.bedKit,
+        bus: studentData.bus,
+        documents: studentData.documents,
+        underage_doc: studentData.underageDoc,
+        healthy_form: studentData.healthyForm,
+        obs: studentData.obs,
+        checked_in: false // Default to not checked in
+      };
+
+      const { data, error } = await supabase
+        .from('students')
+        .insert([supabaseData])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error creating student:', error);
+        return null;
+      }
+
+      // Transform back to our interface
+      return {
+        id: data.id,
+        name: data.name,
+        status: data.status || '',
+        gender: data.gender || '',
+        email: data.email || '',
+        phone: data.phone || '',
+        age: data.age || '',
+        country: data.country || '',
+        nationality: data.nationality || '',
+        language: data.language || '',
+        church: data.church || '',
+        room: data.room || '',
+        bedKit: data.bed_kit || '',
+        bus: data.bus || '',
+        documents: data.documents || '',
+        underageDoc: data.underage_doc || '',
+        healthyForm: data.healthy_form || '',
+        obs: data.obs || '',
+        checkedIn: data.checked_in,
+        checkedInAt: data.checked_in_at ? new Date(data.checked_in_at) : undefined,
+      };
+    } catch (error) {
+      console.error('Error in createStudent:', error);
+      return null;
+    }
   }
 }; 

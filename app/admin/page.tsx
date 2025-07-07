@@ -7,6 +7,7 @@ import { staffMemberService } from '../../data/staffMemberData';
 import SearchBar from '../../components/SearchBar';
 import EditStaffModal from '../../components/EditStaffModal';
 import EditStaffMemberModal from '../../components/EditStaffMemberModal';
+import AddStudentModal from '../../components/AddStudentModal';
 
 type DataType = 'students' | 'staff';
 
@@ -19,6 +20,7 @@ export default function AdminPage() {
   const [students, setStudents] = useState<Staff[]>([]);
   const [selectedStudent, setSelectedStudent] = useState<Staff | null>(null);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+  const [isAddStudentModalOpen, setIsAddStudentModalOpen] = useState(false);
   
   // Staff data
   const [staffMembers, setStaffMembers] = useState<StaffMember[]>([]);
@@ -101,6 +103,21 @@ export default function AdminPage() {
     }
   };
 
+  const handleAddStudent = async (studentData: Omit<Staff, 'id' | 'checkedIn' | 'checkedInAt'>) => {
+    try {
+      const newStudent = await studentService.createStudent(studentData);
+      if (newStudent) {
+        setStudents(prev => [...prev, newStudent]);
+        setIsAddStudentModalOpen(false);
+        // Optionally show success message
+        console.log('Student added successfully!');
+      }
+    } catch (error) {
+      console.error('Error adding student:', error);
+      // Optionally show error message
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -151,14 +168,23 @@ export default function AdminPage() {
           <SearchBar onSearch={setSearchQuery} value={searchQuery} />
         </div>
 
-        {/* Refresh Button */}
-        <div className="mb-6">
+        {/* Action Buttons */}
+        <div className="mb-6 flex gap-3">
           <button
             onClick={loadData}
             className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm font-medium"
           >
             🔄 Refresh Data
           </button>
+          
+          {dataType === 'students' && (
+            <button
+              onClick={() => setIsAddStudentModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+            >
+              ➕ Add New Student
+            </button>
+          )}
         </div>
 
         {/* Data Table */}
@@ -349,6 +375,13 @@ export default function AdminPage() {
           onUpdate={handleStaffUpdate}
         />
       )}
+
+      {/* Add Student Modal */}
+      <AddStudentModal
+        isOpen={isAddStudentModalOpen}
+        onClose={() => setIsAddStudentModalOpen(false)}
+        onSave={handleAddStudent}
+      />
     </div>
   );
 } 

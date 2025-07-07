@@ -20,7 +20,9 @@ export default function StaffMemberDetail({
   onUpdate 
 }: StaffMemberDetailProps) {
   const [isChecking, setIsChecking] = useState(false);
+  const [isUnchecking, setIsUnchecking] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showUncheckConfirmation, setShowUncheckConfirmation] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [currentStaffMember, setCurrentStaffMember] = useState<StaffMember>(staffMember);
 
@@ -41,6 +43,27 @@ export default function StaffMemberDetail({
 
   const handleCancelCheckIn = () => {
     setShowConfirmation(false);
+  };
+
+  const handleUncheckClick = () => {
+    setShowUncheckConfirmation(true);
+  };
+
+  const handleConfirmUncheck = async () => {
+    setIsUnchecking(true);
+    
+    // Simulate a brief loading state for better UX
+    setTimeout(() => {
+      if (onUncheck) {
+        onUncheck(staffMember);
+      }
+      setIsUnchecking(false);
+      setShowUncheckConfirmation(false);
+    }, 500);
+  };
+
+  const handleCancelUncheck = () => {
+    setShowUncheckConfirmation(false);
   };
 
   const handleEditClick = () => {
@@ -86,15 +109,25 @@ export default function StaffMemberDetail({
             </button>
             <h1 className="text-xl font-semibold text-neutral-900">Staff Details</h1>
           </div>
-          <button
-            onClick={handleEditClick}
-            className="p-2 rounded-lg hover:bg-neutral-100 transition-colors"
-            title="Edit Staff Information"
-          >
-            <svg className="w-5 h-5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-          </button>
+          <div className="ml-auto flex items-center space-x-2">
+            <button
+              onClick={handleEditClick}
+              className="p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+              title="Edit Staff Information"
+            >
+              <svg className="w-5 h-5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </button>
+            {currentStaffMember.checkedIn && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Checked In
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -245,34 +278,75 @@ export default function StaffMemberDetail({
           </div>
         </div>
 
-        {/* Check-in Button */}
+        {/* Check-in or Uncheck Button */}
         <div className="pt-6 pb-8">
-          <button
-            onClick={handleCheckInClick}
-            disabled={isChecking}
-            className="btn-primary w-full text-lg py-4 disabled:opacity-50 shadow-lg hover:shadow-xl transition-shadow"
-          >
-            {isChecking ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Processing...
-              </span>
-            ) : (
-              <span className="flex items-center justify-center">
-                <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Check In
-              </span>
-            )}
-          </button>
+          {currentStaffMember.checkedIn ? (
+            <>
+              <div className="bg-accent-50 border border-accent-200 rounded-lg p-4 mb-4">
+                <div className="flex items-start">
+                  <svg className="w-5 h-5 text-accent-500 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                  <div>
+                    <h4 className="text-sm font-medium text-accent-800 mb-1">Uncheck Staff Member</h4>
+                    <p className="text-sm text-accent-700">
+                      Use this option only if this check-in was made by mistake. This action will move the staff member back to the pending list.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <button
+                onClick={handleUncheckClick}
+                disabled={isUnchecking}
+                className="btn-danger w-full text-lg py-4 disabled:opacity-50 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                {isUnchecking ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center">
+                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                    </svg>
+                    Uncheck (Mistake)
+                  </span>
+                )}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleCheckInClick}
+              disabled={isChecking}
+              className="btn-primary w-full text-lg py-4 disabled:opacity-50 shadow-lg hover:shadow-xl transition-shadow"
+            >
+              {isChecking ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing...
+                </span>
+              ) : (
+                <span className="flex items-center justify-center">
+                  <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Check In
+                </span>
+              )}
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Confirmation Modal */}
+      {/* Check-in Confirmation Modal */}
       {showConfirmation && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
@@ -353,6 +427,17 @@ export default function StaffMemberDetail({
         </div>
       )}
 
+      {/* Uncheck Confirmation Modal */}
+      {showUncheckConfirmation && (
+        <UncheckConfirmationModal
+          isOpen={showUncheckConfirmation}
+          staffMember={currentStaffMember}
+          onConfirm={handleConfirmUncheck}
+          onCancel={handleCancelUncheck}
+          isLoading={isUnchecking}
+        />
+      )}
+
       {/* Edit Modal */}
       <EditStaffMemberModal
         isOpen={showEditModal}
@@ -360,6 +445,101 @@ export default function StaffMemberDetail({
         onClose={handleEditCancel}
         onUpdate={handleEditSave}
       />
+    </div>
+  );
+}
+
+// Specialized confirmation modal for unchecking
+interface UncheckConfirmationModalProps {
+  isOpen: boolean;
+  staffMember: StaffMember | null;
+  onConfirm: () => void;
+  onCancel: () => void;
+  isLoading?: boolean;
+}
+
+function UncheckConfirmationModal({ 
+  isOpen, 
+  staffMember, 
+  onConfirm, 
+  onCancel, 
+  isLoading = false 
+}: UncheckConfirmationModalProps) {
+  if (!isOpen || !staffMember) return null;
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onCancel();
+    }
+  };
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={handleBackdropClick}
+    >
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 animate-in fade-in-0 zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="px-6 py-4 border-b border-neutral-200">
+          <h3 className="text-lg font-semibold text-neutral-900">
+            Confirm Uncheck
+          </h3>
+        </div>
+
+        {/* Content */}
+        <div className="px-6 py-4">
+          <div className="text-center">
+            {/* Warning Icon */}
+            <div className="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+
+            {/* Confirmation Message */}
+            <p className="text-neutral-600 mb-2">
+              Are you sure you want to uncheck:
+            </p>
+            <p className="text-xl font-semibold text-neutral-900 mb-4">
+              {staffMember.name}
+            </p>
+
+            <div className="bg-accent-50 border border-accent-200 rounded-lg p-3 mb-4">
+              <p className="text-sm text-accent-700">
+                This will move them back to the pending check-in list. Use this only if the check-in was made by mistake.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="px-6 py-4 border-t border-neutral-200 flex gap-3">
+          <button
+            onClick={onCancel}
+            disabled={isLoading}
+            className="flex-1 btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            disabled={isLoading}
+            className="flex-1 btn-danger disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Unchecking...
+              </div>
+            ) : (
+              '↶ Confirm Uncheck'
+            )}
+          </button>
+        </div>
+      </div>
     </div>
   );
 } 
